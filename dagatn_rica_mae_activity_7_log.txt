@@ -1,0 +1,149 @@
+
+Welcome to
+
+▄▀█ █▀▄ █▀█ █░█ █▀▄▀█   █▀▀ ▀█▀ █▀▄▀█   █▀ █ █▀▄▀█
+█▀█ █▄▀ █▄█ ▀▄▀ █░▀░█   █▄▄ ░█░ █░▀░█   ▄█ █ █░▀░█
+developed by xen0byt3
+==================================================================
+
+Set Hostname: velyx.org
+
+Select Connection Type:
+1. Ethernet
+2. WLAN
+Enter choice (1 or 2): 2
+Set IP Address (Class A only): 10.0.0.1
+Subnet Mask: 255.0.0.0
+
+▄▀█ █▀▄ █▀█ █░█ █▀▄▀█   █▀▀ ▀█▀ █▀▄▀█   █▀ █ █▀▄▀█
+█▀█ █▄▀ █▄█ ▀▄▀ █░▀░█   █▄▄ ░█░ █░▀░█   ▄█ █ █░▀░█
+developed by xen0byt3
+==================================================================
+[Active Website]
+https://www.sinrevilo.moc
+https://www.xeno-byte.moc
+https://www.gi4nt-tcr.moc
+
+Welcome to the adoVM CTM Terminal Simulator. Type 'help' for commands.
+
+velyx.org@adoVM-$: ip a
+WLAN -> 10.0.0.1
+velyx.org@adoVM-$: hostname -I
+velyx.org 10.0.0.1
+velyx.org@adoVM-$: ping
+Usage: ping <target>
+velyx.org@adoVM-$: traceroute
+Usage: traceroute <target>
+velyx.org@adoVM-$: ping google.com
+Reply from google.com: bytes=32 time=86ms TTL=64
+Reply from google.com: bytes=32 time=26ms TTL=64
+Reply from google.com: bytes=32 time=77ms TTL=64
+Reply from google.com: bytes=32 time=95ms TTL=64
+velyx.org@adoVM-$: traceroute google.com
+
+traceroute to google.com, 30 hops max, 60 byte packets
+
+1       192.168.1.108 (LAN Gateway)  16 ms  59 ms  71 ms
+2       192.168.1.32 (LAN Gateway)  29 ms  38 ms  117 ms
+3       10.0.3.145 (ISP Core Router)  18 ms  31 ms  101 ms
+4       10.0.4.223 (ISP Core Router)  24 ms  37 ms  48 ms
+5       10.0.5.139 (ISP Core Router)  22 ms  38 ms  51 ms
+6       197.221.33.6 (External Network)  19 ms  37 ms  115 ms
+7       146.242.94.108 (External Network)  10 ms  53 ms  59 ms
+8       135.89.153.64 (External Network)  21 ms  51 ms  75 ms
+9       198.122.117.192 (External Network)  23 ms  34 ms  106 ms
+10      181.15.58.183 (External Network)  22 ms  60 ms  46 ms
+11      197.96.205.180 (External Network)  19 ms  39 ms  100 ms
+
+Trace complete.
+velyx.org@adoVM-$: nslookup
+Usage: nslookup <target>
+velyx.org@adoVM-$: nslookup google.com
+Unknown host
+velyx.org@adoVM-$: nslookup velyx.org
+Unknown host
+velyx.org@adoVM-$: dig
+Usage: dig <target>
+velyx.org@adoVM-$: dig google.com
+; <<>> DiG 9.18.0 <<>> google.com
+;; global options: +cmd
+
+;; status: NXDOMAIN
+velyx.org@adoVM-$: nmap
+Host seems down or not found.
+velyx.org@adoVM-$: nmap -sV
+Host seems down or not found.
+velyx.org@adoVM-$: nmap -A
+Host seems down or not found.
+velyx.org@adoVM-$: tcpdump-i Ethernet
+Usage: tcpdump -i <interface>
+velyx.org@adoVM-$: tcpdump -i Wlan
+
+listening on Wlan, link-type EN10MB (Ethernet), capture size 262144 bytes
+
+03:41:35 IP 192.168.1.180.22 > 192.168.1.110.22: Flags [S], seq 1689, win 64240, length 0
+03:41:36 IP 192.168.1.61.53 > 192.168.1.112.53: Flags [S], seq 6378, win 64240, length 0
+03:41:36 IP 192.168.1.149 > 192.168.1.113: ICMP echo request, id 1965, seq 3, length 64
+03:41:37 IP 192.168.1.72 > 192.168.1.210: ICMP echo request, id 4919, seq 4, length 64
+03:41:37 IP 192.168.1.33.3389 > 192.168.1.140.3389: Flags [S], seq 6361, win 64240, length 0
+03:41:38 IP 192.168.1.214.443 > 192.168.1.6.443: UDP, length 54
+03:41:38 IP 192.168.1.241 > 192.168.1.221: ICMP echo request, id 3344, seq 7, length 64
+03:41:39 IP 192.168.1.194.53 > 192.168.1.36.53: Flags [S], seq 9261, win 64240, length 0
+velyx.org@adoVM-$: arp-scan --localnet
+You don't have admin privileges to invoke this command
+velyx.org@adoVM-$: Is
+Command not found
+velyx.org@adoVM-$: cat
+Usage: cat <filename>
+velyx.org@adoVM-$: wget
+Invoke ls to see file listing
+velyx.org@adoVM-$: nmap
+Host seems down or not found.
+velyx.org@adoVM-$: nmap -sV
+Host seems down or not found.
+velyx.org@adoVM-$: nmap -A
+Host seems down or not found.
+velyx.org@adoVM-$: tcpdump -i Wlan
+
+listening on Wlan, link-type EN10MB (Ethernet), capture size 262144 bytes
+
+03:43:31 IP 192.168.1.187.443 > 192.168.1.55.443: UDP, length 51
+03:43:31 IP 192.168.1.27.22 > 192.168.1.51.22: Flags [S], seq 7142, win 64240, length 0
+03:43:32 IP 192.168.1.49.445 > 192.168.1.14.445: Flags [S], seq 8485, win 64240, length 0
+03:43:32 IP 192.168.1.109.443 > 192.168.1.13.443: Flags [S], seq 5363, win 64240, length 0
+03:43:33 IP 192.168.1.14 > 192.168.1.171: ICMP echo request, id 4126, seq 5, length 64
+03:43:33 IP 192.168.1.51 > 192.168.1.118: ICMP echo request, id 4129, seq 6, length 64
+03:43:34 IP 192.168.1.116.53 > 192.168.1.133.53: UDP, length 56
+03:43:34 IP 192.168.1.230.3389 > 192.168.1.212.3389: UDP, length 40
+velyx.org@adoVM-$: arp-scan --localnet
+You don't have admin privileges to invoke this command
+velyx.org@adoVM-$: sudo arp-scan --localnet
+
+Scanning local network...
+
+192.168.1.160    F6:56:CE:25:62:F6  HP-Desktop (iPhone)
+192.168.1.78     F5:F1:D4:08:20:8B  Samsung-TV (IoT Sensor)
+192.168.1.118    5F:4C:77:82:64:B3  Epson-Printer (Smart Bulb)
+192.168.1.107    A2:E0:09:BE:D6:F2  TempSensor-X (IoT Sensor)
+192.168.1.15     A4:05:91:4D:BE:CF  Samsung-TV (Router)
+192.168.1.220    3A:50:1C:11:34:47  HP-Desktop (Printer)
+192.168.1.252    45:5D:12:19:01:FB  TempSensor-X (IP Camera)
+192.168.1.152    CF:AB:CA:CE:1C:32  Galaxy-S21 (Tablet)
+192.168.1.80     49:86:F6:45:72:BF  CCTV-Cam01 (Android Phone)
+192.168.1.78     4B:61:BF:F2:82:B8  iPhone-13 (Tablet)
+velyx.org@adoVM-$: is
+Command not found
+velyx.org@adoVM-$: Is
+Command not found
+velyx.org@adoVM-$: ls
+
+File Listing:
+activity_log.txt
+activity_real.txt
+activity_10_log.txt
+
+velyx.org@adoVM-$: cat
+Usage: cat <filename>
+velyx.org@adoVM-$: wget
+Invoke ls to see file listing
+velyx.org@adoVM-$:
