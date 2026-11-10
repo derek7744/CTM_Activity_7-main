@@ -1,0 +1,645 @@
+┌──(maria㉿desktop-pc)-[~]
+└─$ ip a    
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: eth0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc mq state DOWN group default qlen 1000
+    link/ether 84:a9:3e:43:00:e7 brd ff:ff:ff:ff:ff:ff
+3: wlan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 38:ba:f8:aa:3c:82 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.0.104/24 brd 192.168.0.255 scope global dynamic noprefixroute wlan0
+       valid_lft 3655sec preferred_lft 3655sec
+    inet6 fe80::3aba:f8ff:feaa:3c82/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ ip route
+default via 192.168.0.1 dev wlan0 proto dhcp src 192.168.0.104 metric 600 
+192.168.0.0/24 dev wlan0 proto kernel scope link src 192.168.0.104 metric 600 
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ hostname -I
+192.168.0.104 
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ ping -c 4 tesda.gov.ph
+PING tesda.gov.ph (202.91.163.13) 56(84) bytes of data.
+64 bytes from coloc-tesda.bitstop.ph (202.91.163.13): icmp_seq=1 ttl=116 time=49.3 ms
+64 bytes from coloc-tesda.bitstop.ph (202.91.163.13): icmp_seq=2 ttl=116 time=51.8 ms
+64 bytes from coloc-tesda.bitstop.ph (202.91.163.13): icmp_seq=3 ttl=116 time=50.6 ms
+64 bytes from coloc-tesda.bitstop.ph (202.91.163.13): icmp_seq=4 ttl=116 time=53.9 ms
+
+--- tesda.gov.ph ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3005ms
+rtt min/avg/max/mdev = 49.273/51.415/53.910/1.701 ms
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ traceroute tesda.gov.ph
+traceroute to tesda.gov.ph (202.91.163.13), 30 hops max, 60 byte packets
+ 1  192.168.0.1 (192.168.0.1)  8.340 ms  8.148 ms  8.102 ms
+ 2  192.168.100.1 (192.168.100.1)  7.979 ms  8.389 ms  10.652 ms
+ 3  10.56.0.1 (10.56.0.1)  19.867 ms  19.829 ms  19.791 ms
+ 4  161.49.4.234.convergeict.com (161.49.4.234)  18.180 ms  18.140 ms  18.102 ms
+ 5  161.49.7.240.convergeict.com (161.49.7.240)  18.068 ms  19.226 ms 161.49.7.238.convergeict.com (161.49.7.238)  19.188 ms
+ 6  161.49.4.45.convergeict.com (161.49.4.45)  24.275 ms *  4.129 ms
+ 7  * * 161.49.11.229.convergeict.com (161.49.11.229)  31.367 ms
+ 8  9299.sgw.equinix.com (27.111.229.75)  40.734 ms  41.251 ms  41.230 ms
+ 9  210.213.130.38.static.pldt.net (210.213.130.38)  41.500 ms  42.781 ms  42.762 ms
+10  210.213.133.72.static.pldt.net (210.213.133.72)  44.343 ms  44.293 ms  44.774 ms
+11  210.5.64.46 (210.5.64.46)  49.112 ms  49.915 ms  49.016 ms
+12  ut.bitstop.ph (202.91.163.245)  47.398 ms  45.865 ms  46.347 ms
+13  * * coloc-tesda.bitstop.ph (202.91.163.13)  59.823 ms
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ nslookup tesda.gov.ph
+Server:         1.1.1.3
+Address:        1.1.1.3#53
+
+Non-authoritative answer:
+Name:   tesda.gov.ph
+Address: 202.91.163.13
+
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ dig tesda.gov.ph
+
+; <<>> DiG 9.20.27-2-Debian <<>> tesda.gov.ph
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 29452
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;tesda.gov.ph.                  IN      A
+
+;; ANSWER SECTION:
+tesda.gov.ph.           37644   IN      A       202.91.163.13
+
+;; Query time: 8 msec
+;; SERVER: 1.1.1.3#53(1.1.1.3) (UDP)
+;; WHEN: Tue Nov 10 11:39:53 PST 2026
+;; MSG SIZE  rcvd: 57
+
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ sudo ss -tulnp          
+[sudo] password for maria: 
+Netid State  Recv-Q  Send-Q   Local Address:Port   Peer Address:Port Process 
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ nmap 192.168.0.101    
+Starting Nmap 7.991 ( https://nmap.org ) at 2026-11-10 11:41 +0800
+Nmap scan report for 192.168.0.101
+Host is up (0.0087s latency).
+All 1000 scanned ports on 192.168.0.101 are in ignored states.
+Not shown: 1000 filtered tcp ports (no-response)
+MAC Address: F4:4D:30:A1:BA:C1 (Elitegroup Computer Systems)
+
+Nmap done: 1 IP address (1 host up) scanned in 21.81 seconds
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ nmap -sV 192.168.0.101
+Starting Nmap 7.991 ( https://nmap.org ) at 2026-11-10 11:42 +0800
+Nmap scan report for 192.168.0.101
+Host is up (0.0082s latency).
+All 1000 scanned ports on 192.168.0.101 are in ignored states.
+Not shown: 1000 filtered tcp ports (no-response)
+MAC Address: F4:4D:30:A1:BA:C1 (Elitegroup Computer Systems)
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 22.09 seconds
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ sudo nmap -A 192.168.0.101
+Starting Nmap 7.991 ( https://nmap.org ) at 2026-11-10 11:43 +0800
+Nmap scan report for 192.168.0.101
+Host is up (0.0079s latency).
+All 1000 scanned ports on 192.168.0.101 are in ignored states.
+Not shown: 1000 filtered tcp ports (no-response)
+MAC Address: F4:4D:30:A1:BA:C1 (Elitegroup Computer Systems)
+Too many fingerprints match this host to give specific OS details
+Network Distance: 1 hop
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   7.87 ms 192.168.0.101
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 29.85 seconds
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ tcpdump -D             
+1.wlan0 [Up, Running, Wireless, Associated]
+2.any (Pseudo-device that captures on all interfaces) [Up, Running]
+3.lo [Up, Running, Loopback]
+4.eth0 [Up, Disconnected]
+5.bluetooth0 (Bluetooth adapter number 0) [Wireless, Association status unknown]
+6.bluetooth-monitor (Bluetooth Linux Monitor) [Wireless]
+7.nflog (Linux netfilter log (NFLOG) interface) [none]
+8.nfqueue (Linux netfilter queue (NFQUEUE) interface) [none]
+9.dbus-system (D-Bus system bus) [none]
+10.dbus-session (D-Bus session bus) [none]
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ sudo tcpdump -i wlan0     
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on wlan0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+11:44:10.806265 IP 192.168.0.103.57621 > 192.168.0.255.57621: UDP, length 44
+11:44:10.807248 ARP, Request who-has 192.168.0.104 tell 192.168.0.1, length 28
+11:44:10.807305 ARP, Reply 192.168.0.104 is-at 38:ba:f8:aa:3c:82 (oui Unknown), length 28
+11:44:10.809469 ARP, Request who-has 192.168.0.100 tell 192.168.0.1, length 28
+11:44:10.874245 IP 192.168.0.104.58816 > family.cloudflare-dns.com.domain: 19810+ PTR? 255.0.168.192.in-addr.arpa. (44)
+11:44:10.881010 IP family.cloudflare-dns.com.domain > 192.168.0.104.58816: 19810 NXDomain 0/0/0 (44)
+11:44:10.881303 IP 192.168.0.104.51845 > family.cloudflare-dns.com.domain: 24108+ PTR? 103.0.168.192.in-addr.arpa. (44)
+11:44:10.889488 IP family.cloudflare-dns.com.domain > 192.168.0.104.51845: 24108 NXDomain 0/0/0 (44)
+11:44:10.889910 IP 192.168.0.104.53724 > family.cloudflare-dns.com.domain: 37803+ PTR? 104.0.168.192.in-addr.arpa. (44)
+11:44:10.896909 IP family.cloudflare-dns.com.domain > 192.168.0.104.53724: 37803 NXDomain 0/0/0 (44)
+11:44:10.897238 IP 192.168.0.104.39539 > family.cloudflare-dns.com.domain: 50286+ PTR? 1.0.168.192.in-addr.arpa. (42)
+11:44:10.908796 IP family.cloudflare-dns.com.domain > 192.168.0.104.39539: 50286 NXDomain 0/0/0 (42)
+11:44:10.909239 IP 192.168.0.104.47841 > family.cloudflare-dns.com.domain: 41806+ PTR? 100.0.168.192.in-addr.arpa. (44)
+11:44:10.915496 IP family.cloudflare-dns.com.domain > 192.168.0.104.47841: 41806 NXDomain 0/0/0 (44)
+11:44:10.973929 IP 192.168.0.104.44991 > family.cloudflare-dns.com.domain: 31373+ PTR? 3.1.1.1.in-addr.arpa. (38)
+11:44:10.979718 IP family.cloudflare-dns.com.domain > 192.168.0.104.44991: 31373 1/0/0 PTR family.cloudflare-dns.com. (77)
+11:44:11.829907 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:11.830813 ARP, Request who-has 192.168.0.100 tell 192.168.0.1, length 28
+11:44:11.873849 IP 192.168.0.104.48876 > family.cloudflare-dns.com.domain: 3253+ PTR? 101.0.168.192.in-addr.arpa. (44)
+11:44:11.881578 IP family.cloudflare-dns.com.domain > 192.168.0.104.48876: 3253 NXDomain 0/0/0 (44)
+11:44:12.853672 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:12.854849 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:12.855702 ARP, Request who-has 192.168.0.100 tell 192.168.0.1, length 28
+11:44:13.775612 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:13.776374 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:14.799485 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:14.800105 ARP, Request who-has 192.168.0.102 tell 192.168.0.1, length 28
+11:44:14.873965 IP 192.168.0.104.42344 > family.cloudflare-dns.com.domain: 23571+ PTR? 102.0.168.192.in-addr.arpa. (44)
+11:44:14.881509 IP family.cloudflare-dns.com.domain > 192.168.0.104.42344: 23571 NXDomain 0/0/0 (44)
+11:44:15.823243 ARP, Request who-has 192.168.0.102 tell 192.168.0.1, length 28
+11:44:16.128330 ARP, Request who-has 192.168.0.1 tell 192.168.0.104, length 28
+11:44:16.138038 ARP, Reply 192.168.0.1 is-at ac:15:a2:b0:d9:28 (oui Unknown), length 28
+11:44:24.834630 ARP, Request who-has 192.168.0.100 tell 192.168.0.1, length 28
+11:44:27.804349 ARP, Request who-has 192.168.0.102 tell 192.168.0.1, length 28
+11:44:27.805080 ARP, Request who-has 192.168.0.104 tell 192.168.0.1, length 28
+11:44:27.805096 ARP, Reply 192.168.0.104 is-at 38:ba:f8:aa:3c:82 (oui Unknown), length 28
+11:44:36.713545 IP6 :: > ip6-allnodes: HBH ICMP6, multicast listener query v2 [gaddr ::], length 28
+11:44:38.865430 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:39.785065 ARP, Request who-has 192.168.0.104 tell 192.168.0.1, length 28
+11:44:39.785089 ARP, Reply 192.168.0.104 is-at 38:ba:f8:aa:3c:82 (oui Unknown), length 28
+11:44:40.809380 IP 192.168.0.103.57621 > 192.168.0.255.57621: UDP, length 44
+11:44:43.779310 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:44.802968 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:44.803856 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:45.826824 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:45.827500 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:46.850446 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+^C
+47 packets captured
+47 packets received by filter
+0 packets dropped by kernel
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ arp-scan --localnet
+pcap_activate: wlan0: You don't have permission to perform this capture on that device
+(Attempt to create packet socket failed - CAP_NET_RAW may be required)
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ sudo arp-scan --localnet
+Interface: wlan0, type: EN10MB, MAC: 38:ba:f8:aa:3c:82, IPv4: 192.168.0.104
+WARNING: Cannot open MAC/Vendor file ieee-oui.txt: Permission denied
+WARNING: Cannot open MAC/Vendor file mac-vendor.txt: Permission denied
+Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)
+192.168.0.1     ac:15:a2:b0:d9:28       (Unknown)
+192.168.0.101   f4:4d:30:a1:ba:c1       (Unknown)
+192.168.0.103   ac:ed:5c:9d:47:7f       (Unknown)
+
+3 packets received by filter, 0 packets dropped by kernel
+Ending arp-scan 1.10.0: 256 hosts scanned in 1.828 seconds (140.04 hosts/sec). 3 responded
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ wget http://example.com/index.html
+--2026-11-10 11:46:30--  http://example.com/index.html
+Resolving example.com (example.com)... 172.66.147.243, 104.20.23.154, 2606:4700:10::6814:179a, ...
+Connecting to example.com (example.com)|172.66.147.243|:80... connected.
+HTTP request sent, awaiting response... 404 Not Found
+2026-11-10 11:46:30 ERROR 404: Not Found.
+
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ ls
+activity_log.txt  Documents  Music     Projects  Templates
+Desktop           Downloads  Pictures  Public    Videos
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ cat index.html      
+cat: index.html: No such file or directory
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ cat activity_log.txt
+Script started on 2026-11-10 11:38:27+08:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="77" LINES="28"]
+┌──(maria㉿desktop-pc)-[~]
+└─$ ip a    
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: eth0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc mq state DOWN group default qlen 1000
+    link/ether 84:a9:3e:43:00:e7 brd ff:ff:ff:ff:ff:ff
+3: wlan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 38:ba:f8:aa:3c:82 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.0.104/24 brd 192.168.0.255 scope global dynamic noprefixroute wlan0
+       valid_lft 3655sec preferred_lft 3655sec
+    inet6 fe80::3aba:f8ff:feaa:3c82/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ ip route
+default via 192.168.0.1 dev wlan0 proto dhcp src 192.168.0.104 metric 600 
+192.168.0.0/24 dev wlan0 proto kernel scope link src 192.168.0.104 metric 600 
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ hostname -I
+192.168.0.104 
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ ping -c 4 tesda.gov.ph
+PING tesda.gov.ph (202.91.163.13) 56(84) bytes of data.
+64 bytes from coloc-tesda.bitstop.ph (202.91.163.13): icmp_seq=1 ttl=116 time=49.3 ms
+64 bytes from coloc-tesda.bitstop.ph (202.91.163.13): icmp_seq=2 ttl=116 time=51.8 ms
+64 bytes from coloc-tesda.bitstop.ph (202.91.163.13): icmp_seq=3 ttl=116 time=50.6 ms
+64 bytes from coloc-tesda.bitstop.ph (202.91.163.13): icmp_seq=4 ttl=116 time=53.9 ms
+
+--- tesda.gov.ph ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3005ms
+rtt min/avg/max/mdev = 49.273/51.415/53.910/1.701 ms
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ traceroute tesda.gov.ph
+traceroute to tesda.gov.ph (202.91.163.13), 30 hops max, 60 byte packets
+ 1  192.168.0.1 (192.168.0.1)  8.340 ms  8.148 ms  8.102 ms
+ 2  192.168.100.1 (192.168.100.1)  7.979 ms  8.389 ms  10.652 ms
+ 3  10.56.0.1 (10.56.0.1)  19.867 ms  19.829 ms  19.791 ms
+ 4  161.49.4.234.convergeict.com (161.49.4.234)  18.180 ms  18.140 ms  18.102 ms
+ 5  161.49.7.240.convergeict.com (161.49.7.240)  18.068 ms  19.226 ms 161.49.7.238.convergeict.com (161.49.7.238)  19.188 ms
+ 6  161.49.4.45.convergeict.com (161.49.4.45)  24.275 ms *  4.129 ms
+ 7  * * 161.49.11.229.convergeict.com (161.49.11.229)  31.367 ms
+ 8  9299.sgw.equinix.com (27.111.229.75)  40.734 ms  41.251 ms  41.230 ms
+ 9  210.213.130.38.static.pldt.net (210.213.130.38)  41.500 ms  42.781 ms  42.762 ms
+10  210.213.133.72.static.pldt.net (210.213.133.72)  44.343 ms  44.293 ms  44.774 ms
+11  210.5.64.46 (210.5.64.46)  49.112 ms  49.915 ms  49.016 ms
+12  ut.bitstop.ph (202.91.163.245)  47.398 ms  45.865 ms  46.347 ms
+13  * * coloc-tesda.bitstop.ph (202.91.163.13)  59.823 ms
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ nslookup tesda.gov.ph
+Server:         1.1.1.3
+Address:        1.1.1.3#53
+
+Non-authoritative answer:
+Name:   tesda.gov.ph
+Address: 202.91.163.13
+
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ dig tesda.gov.ph
+
+; <<>> DiG 9.20.27-2-Debian <<>> tesda.gov.ph
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 29452
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;tesda.gov.ph.                  IN      A
+
+;; ANSWER SECTION:
+tesda.gov.ph.           37644   IN      A       202.91.163.13
+
+;; Query time: 8 msec
+;; SERVER: 1.1.1.3#53(1.1.1.3) (UDP)
+;; WHEN: Tue Nov 10 11:39:53 PST 2026
+;; MSG SIZE  rcvd: 57
+
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ sudo ss -tulnp          
+[sudo] password for maria: 
+Netid State  Recv-Q  Send-Q   Local Address:Port   Peer Address:Port Process 
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ nmap 192.168.0.101    
+Starting Nmap 7.991 ( https://nmap.org ) at 2026-11-10 11:41 +0800
+Nmap scan report for 192.168.0.101
+Host is up (0.0087s latency).
+All 1000 scanned ports on 192.168.0.101 are in ignored states.
+Not shown: 1000 filtered tcp ports (no-response)
+MAC Address: F4:4D:30:A1:BA:C1 (Elitegroup Computer Systems)
+
+Nmap done: 1 IP address (1 host up) scanned in 21.81 seconds
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ nmap -sV 192.168.0.101
+Starting Nmap 7.991 ( https://nmap.org ) at 2026-11-10 11:42 +0800
+Nmap scan report for 192.168.0.101
+Host is up (0.0082s latency).
+All 1000 scanned ports on 192.168.0.101 are in ignored states.
+Not shown: 1000 filtered tcp ports (no-response)
+MAC Address: F4:4D:30:A1:BA:C1 (Elitegroup Computer Systems)
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 22.09 seconds
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ sudo nmap -A 192.168.0.101
+Starting Nmap 7.991 ( https://nmap.org ) at 2026-11-10 11:43 +0800
+Nmap scan report for 192.168.0.101
+Host is up (0.0079s latency).
+All 1000 scanned ports on 192.168.0.101 are in ignored states.
+Not shown: 1000 filtered tcp ports (no-response)
+MAC Address: F4:4D:30:A1:BA:C1 (Elitegroup Computer Systems)
+Too many fingerprints match this host to give specific OS details
+Network Distance: 1 hop
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   7.87 ms 192.168.0.101
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 29.85 seconds
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ tcpdump -D             
+1.wlan0 [Up, Running, Wireless, Associated]
+2.any (Pseudo-device that captures on all interfaces) [Up, Running]
+3.lo [Up, Running, Loopback]
+4.eth0 [Up, Disconnected]
+5.bluetooth0 (Bluetooth adapter number 0) [Wireless, Association status unknown]
+6.bluetooth-monitor (Bluetooth Linux Monitor) [Wireless]
+7.nflog (Linux netfilter log (NFLOG) interface) [none]
+8.nfqueue (Linux netfilter queue (NFQUEUE) interface) [none]
+9.dbus-system (D-Bus system bus) [none]
+10.dbus-session (D-Bus session bus) [none]
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ sudo tcpdump -i wlan0     
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on wlan0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+11:44:10.806265 IP 192.168.0.103.57621 > 192.168.0.255.57621: UDP, length 44
+11:44:10.807248 ARP, Request who-has 192.168.0.104 tell 192.168.0.1, length 28
+11:44:10.807305 ARP, Reply 192.168.0.104 is-at 38:ba:f8:aa:3c:82 (oui Unknown), length 28
+11:44:10.809469 ARP, Request who-has 192.168.0.100 tell 192.168.0.1, length 28
+11:44:10.874245 IP 192.168.0.104.58816 > family.cloudflare-dns.com.domain: 19810+ PTR? 255.0.168.192.in-addr.arpa. (44)
+11:44:10.881010 IP family.cloudflare-dns.com.domain > 192.168.0.104.58816: 19810 NXDomain 0/0/0 (44)
+11:44:10.881303 IP 192.168.0.104.51845 > family.cloudflare-dns.com.domain: 24108+ PTR? 103.0.168.192.in-addr.arpa. (44)
+11:44:10.889488 IP family.cloudflare-dns.com.domain > 192.168.0.104.51845: 24108 NXDomain 0/0/0 (44)
+11:44:10.889910 IP 192.168.0.104.53724 > family.cloudflare-dns.com.domain: 37803+ PTR? 104.0.168.192.in-addr.arpa. (44)
+11:44:10.896909 IP family.cloudflare-dns.com.domain > 192.168.0.104.53724: 37803 NXDomain 0/0/0 (44)
+11:44:10.897238 IP 192.168.0.104.39539 > family.cloudflare-dns.com.domain: 50286+ PTR? 1.0.168.192.in-addr.arpa. (42)
+11:44:10.908796 IP family.cloudflare-dns.com.domain > 192.168.0.104.39539: 50286 NXDomain 0/0/0 (42)
+11:44:10.909239 IP 192.168.0.104.47841 > family.cloudflare-dns.com.domain: 41806+ PTR? 100.0.168.192.in-addr.arpa. (44)
+11:44:10.915496 IP family.cloudflare-dns.com.domain > 192.168.0.104.47841: 41806 NXDomain 0/0/0 (44)
+11:44:10.973929 IP 192.168.0.104.44991 > family.cloudflare-dns.com.domain: 31373+ PTR? 3.1.1.1.in-addr.arpa. (38)
+11:44:10.979718 IP family.cloudflare-dns.com.domain > 192.168.0.104.44991: 31373 1/0/0 PTR family.cloudflare-dns.com. (77)
+11:44:11.829907 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:11.830813 ARP, Request who-has 192.168.0.100 tell 192.168.0.1, length 28
+11:44:11.873849 IP 192.168.0.104.48876 > family.cloudflare-dns.com.domain: 3253+ PTR? 101.0.168.192.in-addr.arpa. (44)
+11:44:11.881578 IP family.cloudflare-dns.com.domain > 192.168.0.104.48876: 3253 NXDomain 0/0/0 (44)
+11:44:12.853672 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:12.854849 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:12.855702 ARP, Request who-has 192.168.0.100 tell 192.168.0.1, length 28
+11:44:13.775612 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:13.776374 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:14.799485 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:14.800105 ARP, Request who-has 192.168.0.102 tell 192.168.0.1, length 28
+11:44:14.873965 IP 192.168.0.104.42344 > family.cloudflare-dns.com.domain: 23571+ PTR? 102.0.168.192.in-addr.arpa. (44)
+11:44:14.881509 IP family.cloudflare-dns.com.domain > 192.168.0.104.42344: 23571 NXDomain 0/0/0 (44)
+11:44:15.823243 ARP, Request who-has 192.168.0.102 tell 192.168.0.1, length 28
+11:44:16.128330 ARP, Request who-has 192.168.0.1 tell 192.168.0.104, length 28
+11:44:16.138038 ARP, Reply 192.168.0.1 is-at ac:15:a2:b0:d9:28 (oui Unknown), length 28
+11:44:24.834630 ARP, Request who-has 192.168.0.100 tell 192.168.0.1, length 28
+11:44:27.804349 ARP, Request who-has 192.168.0.102 tell 192.168.0.1, length 28
+11:44:27.805080 ARP, Request who-has 192.168.0.104 tell 192.168.0.1, length 28
+11:44:27.805096 ARP, Reply 192.168.0.104 is-at 38:ba:f8:aa:3c:82 (oui Unknown), length 28
+11:44:36.713545 IP6 :: > ip6-allnodes: HBH ICMP6, multicast listener query v2 [gaddr ::], length 28
+11:44:38.865430 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:39.785065 ARP, Request who-has 192.168.0.104 tell 192.168.0.1, length 28
+11:44:39.785089 ARP, Reply 192.168.0.104 is-at 38:ba:f8:aa:3c:82 (oui Unknown), length 28
+11:44:40.809380 IP 192.168.0.103.57621 > 192.168.0.255.57621: UDP, length 44
+11:44:43.779310 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:44.802968 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:44.803856 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:45.826824 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:45.827500 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+11:44:46.850446 ARP, Request who-has 192.168.0.101 tell 192.168.0.1, length 28
+^C
+47 packets captured
+47 packets received by filter
+0 packets dropped by kernel
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ arp-scan --localnet
+pcap_activate: wlan0: You don't have permission to perform this capture on that device
+(Attempt to create packet socket failed - CAP_NET_RAW may be required)
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ sudo arp-scan --localnet
+Interface: wlan0, type: EN10MB, MAC: 38:ba:f8:aa:3c:82, IPv4: 192.168.0.104
+WARNING: Cannot open MAC/Vendor file ieee-oui.txt: Permission denied
+WARNING: Cannot open MAC/Vendor file mac-vendor.txt: Permission denied
+Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)
+192.168.0.1     ac:15:a2:b0:d9:28       (Unknown)
+192.168.0.101   f4:4d:30:a1:ba:c1       (Unknown)
+192.168.0.103   ac:ed:5c:9d:47:7f       (Unknown)
+
+3 packets received by filter, 0 packets dropped by kernel
+Ending arp-scan 1.10.0: 256 hosts scanned in 1.828 seconds (140.04 hosts/sec). 3 responded
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ wget http://example.com/index.html
+--2026-11-10 11:46:30--  http://example.com/index.html
+Resolving example.com (example.com)... 172.66.147.243, 104.20.23.154, 2606:4700:10::6814:179a, ...
+Connecting to example.com (example.com)|172.66.147.243|:80... connected.
+HTTP request sent, awaiting response... 404 Not Found
+2026-11-10 11:46:30 ERROR 404: Not Found.
+
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ ls
+activity_log.txt  Documents  Music     Projects  Templates
+Desktop           Downloads  Pictures  Public    Videos
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ cat index.html      
+cat: index.html: No such file or directory
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ cat activity_log.txt
+Script started on 2026-11-10 11:38:27+08:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="77" LINES="28"]
+┌──(maria㉿desktop-pc)-[~]
+└─$ ip a    
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: eth0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc mq state DOWN group default qlen 1000
+    link/ether 84:a9:3e:43:00:e7 brd ff:ff:ff:ff:ff:ff
+3: wlan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 38:ba:f8:aa:3c:82 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.0.104/24 brd 192.168.0.255 scope global dynamic noprefixroute wlan0
+       valid_lft 3655sec preferred_lft 3655sec
+    inet6 fe80::3aba:f8ff:feaa:3c82/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ ip route
+default via 192.168.0.1 dev wlan0 proto dhcp src 192.168.0.104 metric 600 
+192.168.0.0/24 dev wlan0 proto kernel scope link src 192.168.0.104 metric 600 
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ hostname -I
+192.168.0.104 
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ ping -c 4 tesda.gov.ph
+PING tesda.gov.ph (202.91.163.13) 56(84) bytes of data.
+64 bytes from coloc-tesda.bitstop.ph (202.91.163.13): icmp_seq=1 ttl=116 time=49.3 ms
+64 bytes from coloc-tesda.bitstop.ph (202.91.163.13): icmp_seq=2 ttl=116 time=51.8 ms
+64 bytes from coloc-tesda.bitstop.ph (202.91.163.13): icmp_seq=3 ttl=116 time=50.6 ms
+64 bytes from coloc-tesda.bitstop.ph (202.91.163.13): icmp_seq=4 ttl=116 time=53.9 ms
+
+--- tesda.gov.ph ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3005ms
+rtt min/avg/max/mdev = 49.273/51.415/53.910/1.701 ms
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ traceroute tesda.gov.ph
+traceroute to tesda.gov.ph (202.91.163.13), 30 hops max, 60 byte packets
+ 1  192.168.0.1 (192.168.0.1)  8.340 ms  8.148 ms  8.102 ms
+ 2  192.168.100.1 (192.168.100.1)  7.979 ms  8.389 ms  10.652 ms
+ 3  10.56.0.1 (10.56.0.1)  19.867 ms  19.829 ms  19.791 ms
+ 4  161.49.4.234.convergeict.com (161.49.4.234)  18.180 ms  18.140 ms  18.102 ms
+ 5  161.49.7.240.convergeict.com (161.49.7.240)  18.068 ms  19.226 ms 161.49.7.238.convergeict.com (161.49.7.238)  19.188 ms
+ 6  161.49.4.45.convergeict.com (161.49.4.45)  24.275 ms *  4.129 ms
+ 7  * * 161.49.11.229.convergeict.com (161.49.11.229)  31.367 ms
+ 8  9299.sgw.equinix.com (27.111.229.75)  40.734 ms  41.251 ms  41.230 ms
+ 9  210.213.130.38.static.pldt.net (210.213.130.38)  41.500 ms  42.781 ms  42.762 ms
+10  210.213.133.72.static.pldt.net (210.213.133.72)  44.343 ms  44.293 ms  44.774 ms
+11  210.5.64.46 (210.5.64.46)  49.112 ms  49.915 ms  49.016 ms
+12  ut.bitstop.ph (202.91.163.245)  47.398 ms  45.865 ms  46.347 ms
+13  * * coloc-tesda.bitstop.ph (202.91.163.13)  59.823 ms
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ nslookup tesda.gov.ph
+Server:         1.1.1.3
+Address:        1.1.1.3#53
+
+Non-authoritative answer:
+Name:   tesda.gov.ph
+Address: 202.91.163.13
+
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ dig tesda.gov.ph
+
+; <<>> DiG 9.20.27-2-Debian <<>> tesda.gov.ph
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 29452
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+;; QUESTION SECTION:
+;tesda.gov.ph.                  IN      A
+
+;; ANSWER SECTION:
+tesda.gov.ph.           37644   IN      A       202.91.163.13
+
+;; Query time: 8 msec
+;; SERVER: 1.1.1.3#53(1.1.1.3) (UDP)
+;; WHEN: Tue Nov 10 11:39:53 PST 2026
+;; MSG SIZE  rcvd: 57
+
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ sudo ss -tulnp          
+[sudo] password for maria: 
+Netid State  Recv-Q  Send-Q   Local Address:Port   Peer Address:Port Process 
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ nmap 192.168.0.101    
+Starting Nmap 7.991 ( https://nmap.org ) at 2026-11-10 11:41 +0800
+Nmap scan report for 192.168.0.101
+Host is up (0.0087s latency).
+All 1000 scanned ports on 192.168.0.101 are in ignored states.
+Not shown: 1000 filtered tcp ports (no-response)
+MAC Address: F4:4D:30:A1:BA:C1 (Elitegroup Computer Systems)
+
+Nmap done: 1 IP address (1 host up) scanned in 21.81 seconds
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ nmap -sV 192.168.0.101
+Starting Nmap 7.991 ( https://nmap.org ) at 2026-11-10 11:42 +0800
+Nmap scan report for 192.168.0.101
+Host is up (0.0082s latency).
+All 1000 scanned ports on 192.168.0.101 are in ignored states.
+Not shown: 1000 filtered tcp ports (no-response)
+MAC Address: F4:4D:30:A1:BA:C1 (Elitegroup Computer Systems)
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 22.09 seconds
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ sudo nmap -A 192.168.0.101
+Starting Nmap 7.991 ( https://nmap.org ) at 2026-11-10 11:43 +0800
+Nmap scan report for 192.168.0.101
+Host is up (0.0079s latency).
+All 1000 scanned ports on 192.168.0.101 are in ignored states.
+Not shown: 1000 filtered tcp ports (no-response)
+MAC Address: F4:4D:30:A1:BA:C1 (Elitegroup Computer Systems)
+Too many fingerprints match this host to give specific OS details
+Network Distance: 1 hop
+
+TRACEROUTE
+HOP RTT     ADDRESS
+1   7.87 ms 192.168.0.101
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 29.85 seconds
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ tcpdump -D             
+1.wlan0 [Up, Running, Wireless, Associated]
+2.any (Pseudo-device that captures on all interfaces) [Up, Running]
+3.lo [Up, Running, Loopback]
+4.eth0 [Up, Disconnected]
+5.bluetooth0 (Bluetooth adapter number 0) [Wireless, Association status unknown]
+6.bluetooth-monitor (Bluetooth Linux Monitor) [Wireless]
+7.nflog (Linux netfilter log (NFLOG) interface) [none]
+8.nfqueue (Linux netfilter queue (NFQUEUE) interface) [none]
+9.dbus-system (D-Bus system bus) [none]
+10.dbus-session (D-Bus session bus) [none]
+                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ sudo tcpdump -i wlan0     
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on wlan0, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+11:44:10.806265 IP 192.168.0.103.57621 > 192.168.0.255.57621: UDP, length 44
+11:44:10.807248 ARP, Request who-has 192.168.0.104 tell 192.168.0.1, length 28
+11:44:10.807305 ARP, Reply 192.168.0.104 is-at 38:ba:f8:aa:3c:82 (oui Unknown), length 28
+11:44:10.809469 ARP, Request who-has 192.168.0.100 tell 192.168.0.1, length 28
+11:44:10.874245 IP 192.168.0.104.58816 > family.cloudflare-dns.com.domain: 19810+ PTR? 255.0.168.192.in-addr.arpa. (44)
+11:44:10.881010 IP family.cloudflare                                                                             
+┌──(maria㉿desktop-pc)-[~]
+└─$ exit
+
+Script done on 2026-11-10 11:49:15+08:00 [COMMAND_EXIT_CODE="0"]
